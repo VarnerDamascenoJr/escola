@@ -24,3 +24,16 @@ nome_disci VARCHAR(20) NOT NULL,
 ano_de_ensino INT
 );
 
+CREATE TABLE professor(
+id_prof INT NOT NULL PRIMARY KEY AUTO INCREMENT,
+nome VARCHAR(20) NOT NULL,
+sexo VARCHAR(4),
+idade INT,
+data_ingresso DATE NOT NULL
+);
+
+CREATE TABLE horario(
+id_horario INT NOT NULL PRIMARY KEY AUTO INCREMENT,
+turno VARCHAR(6),
+hora_trabalhada INT NOT NULL  
+);
