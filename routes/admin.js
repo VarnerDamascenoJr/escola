@@ -7,11 +7,24 @@ const router   = express.Router()
 require('./models/Aluno') //Aqui estou carregando o model que consta os dados a serem armazenados para alunos
 
 //Aqui será instanciado cada model a ser usado
-const Aluno = mongoose.model('Aluno')
+const Aluno = mongoose.models('Aluno')
 
 
 router.post('/addaluno', (req, res)=>{
-  res.render()
+   nome: req.body.nome,
+   idade: req.body.idade,
+   turno: req.body.turno,
+   anoEnsino: req.body.anoEnsino,
+   anoEntrada: req.body.anoEntrada,
+   anoSaida: req.body.anoSaida,
+   nomeMae: req.body.nomeMae,
+   nomePai: req.body.nomePai
+
+   new Aluno = aluno.save().then((aluno)=>{
+
+   }).catch((err)=>{
+     
+   })
 })
 
 model.exports = router
