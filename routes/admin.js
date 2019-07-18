@@ -37,7 +37,7 @@ new Aluno(novoAluno).save().then(()=>{
 })
 //A notar que será pego o id exclusivo de cada aluno e então será editado a partir de uma rota post
 router.get('/aluno/edit/:id')
-
+   Aluno.findOne({_id: req.params.id})
 
 
 module.exports = router
