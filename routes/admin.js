@@ -10,8 +10,15 @@ router.get('/',(req, res)=>{
 })
 
 router.post('/aluno', (req, res)=>{
-   
-  
+   nome: req.body.nome,
+   idade: req.body.idade,
+   turno: req.body.turno,
+   anoEnsino: req.body.anoEnsino,
+   anoEntrada: req.body.anoEntrada,
+   anoSaida: req.body.anoSaida,
+   nomePai: req.body.nomePai,
+   nomeMae: req.body.nomeMae,
+   telefone: req.body.telefone
 })
 
 
