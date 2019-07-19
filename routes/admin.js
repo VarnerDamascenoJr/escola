@@ -11,8 +11,9 @@ router.get('/',(req, res)=>{
 router.get("/aluno", (req, res)=>{
   res.render('./admin/alunocadastro')
 })
+
 //rota post para adição de novo aluno
-router.post('/admin/alunoadd', (req, res)=>{
+router.post('/alunoadd', (req, res)=>{
  var erros = []
 // Aqui são dados alguns tratamentos importantes no momento do preenchimento do
 //formulário para criação de estudante. Basicamente, estes campos devem ser
@@ -54,6 +55,15 @@ router.post('/admin/alunoadd', (req, res)=>{
       res.redirect('admin/alunoadd')
    })
 
+})
+
+//rotas para listagem de alunos
+router.get("/aluno-editar", (req, res)=>{
+  res.render("./admin/alunoedit")
+})
+
+router.post("/", (req, res)=>{
+  Aluno.find().then((alunos:alunos)=>{}).catch((err)=>{})  
 })
 
 
