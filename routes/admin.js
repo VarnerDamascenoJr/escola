@@ -1,8 +1,8 @@
 const express  = require('express')
 const mongoose = require('mongoose')
 const router   = express.Router()
-require('../models/Aluno')
-const Aluno    = mongoose.model('alunos')
+require('../models/Aluno')  //requermento do arquivo alunos que será usado
+const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
 
 router.get('/',(req, res)=>{
   res.render('./admin')
@@ -11,14 +11,22 @@ router.get('/',(req, res)=>{
 router.get("/aluno", (req, res)=>{
   res.render('./admin/alunocadastro')
 })
-//rota para adição de novo aluno
-router.post('./aluno/alunoadd', (req, res)=>{
+//rota post para adição de novo aluno
+router.post('/admin/alunoadd', (req, res)=>{
  var erros = []
-
- if (!req.body.nome || typeof req.body.nome == null || req.body.nome == undefined ) { erros.push({texto:"nome inválido"})}
- if (!req.body.nomeMae || typeof req.body.nomeMae == null || req.body.nomeMae == undefined) {erros.push({texto:"Nome da mãe é obrigatório"})}
- if (!req.body.nomePai || typeof req.body.nomePai == null || req.body.nomePai == undefined) {erros.push({texto:"Nome do pai é obrigatório"})}
- if (!req.body.idade || typeof req.body.idade == null || req.body.idade == undefined ) { erros.push({texto:"Idade é campo obrigatório"})}
+// Aqui são dados alguns tratamentos importantes no momento do preenchimento do
+//formulário para criação de estudante. Basicamente, estes campos devem ser
+//diferentes de null, devem estar definidos e o nome deve existir. Caso isso
+//não ocorra, então, coloco cada erro dentro de um vetor erros. Se notar, após
+// eu inserir, vê-se que se o tamanho do erro for maior que zero( contém erros),
+//então, a página para adição de alunos será renderizada novamente e as
+//mensagens de erro aparecerão na tela como forma de cookie. Porque estes dados
+//serão enviados para a página alunoadd e lá apareção e em uma estrutura
+// each/else e serão exibidas no formato alert.
+ if (!req.body.nome    || typeof req.body.nome == null       || req.body.nome    == undefined ) { erros.push({texto:"nome inválido"})}
+ if (!req.body.nomeMae || typeof req.body.nomeMae == null    || req.body.nomeMae == undefined) {erros.push({texto:"Nome da mãe é obrigatório"})}
+ if (!req.body.nomePai || typeof req.body.nomePai == null    || req.body.nomePai == undefined) {erros.push({texto:"Nome do pai é obrigatório"})}
+ if (!req.body.idade   || typeof req.body.idade == null      || req.body.idade   == undefined ) { erros.push({texto:"Idade é campo obrigatório"})}
  if (erros.length > 0) { res.render('/admin/alunoadd', {erros: erros}) }
 
    const novoAluno = {
@@ -32,6 +40,12 @@ router.post('./aluno/alunoadd', (req, res)=>{
      nomeMae: req.body.nomeMae,
      telefone: req.body.telefone
    }
+   //Consta-se aqui o instanciamento de um novo aluno a partir da variável
+   //novoAluno e então será armazenada dentro do banco de dados e feito os
+   //tratamentos necessários. Caso seja adicionado com sucesso, aparecerá um
+   //cookie informando que foi adicionado e caso não seja, então, aparecerá
+   //outro informando que não foi informado. Depois haverá direcionamento para
+   // a página de cadastro.
    new Aluno(novoAluno).save().then(()=>{
       req.flash("success_msg", "Aluno cadastrado com sucesso.")
       res.redirect("admin/alunoadd")
@@ -45,5 +59,5 @@ router.post('./aluno/alunoadd', (req, res)=>{
 
 
 
-
+//Módulo para exportar tudo o que tenho a partir da rota determinada.
 module.exports = router
