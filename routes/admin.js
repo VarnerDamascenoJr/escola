@@ -2,10 +2,16 @@ const express  = require('express')
 const mongoose = require('mongoose')
 const router   = express.Router()
 require('../models/Aluno')  //requerimento do arquivo alunos que será usado
+
+//instanciamento do model para aluno
 const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
 
-router.get('/',(req, res)=>{
-  res.render('./admin')
+
+
+
+//rota para acesso à página de adição que será feita pelo post
+router.get('/alunoadd',(req, res)=>{
+  res.render('./admin/alunoadd')
 })
 //Aqui serão todas as rotas referidas para os alunos.
 router.get("/aluno", (req, res)=>{
@@ -13,7 +19,7 @@ router.get("/aluno", (req, res)=>{
 })
 
 //rota post para adição de novo aluno
-router.post('/alunoadd', (req, res)=>{
+router.post('./admin/alunoadd', (req, res)=>{
  var erros = []
 // Aqui são dados alguns tratamentos importantes no momento do preenchimento do
 //formulário para criação de estudante. Basicamente, estes campos devem ser
@@ -49,22 +55,13 @@ router.post('/alunoadd', (req, res)=>{
    // a página de cadastro.
    new Aluno(novoAluno).save().then(()=>{
       req.flash("success_msg", "Aluno cadastrado com sucesso.")
-      res.redirect("admin/alunoadd")
+      res.redirect(".admin/aluno")
    }).catch((err)=>{
       req.flash("error_msg", "Aluno não cadastrado"+err)
-      res.redirect('admin/alunoadd')
+      res.redirect('.admin/aluno')
    })
-
 })
 
-//rotas para listagem de alunos
-router.get("/aluno-editar", (req, res)=>{
-  res.render("/admin/alunoedit")
-})
-
-router.post("/", (req, res)=>{
-  Aluno.find().then((alunos:alunos)=>{}).catch((err)=>{})
-})
 
 
 
