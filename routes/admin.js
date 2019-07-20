@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const router   = express.Router()
 require('../models/Aluno')  //requerimento do arquivo alunos que será usado
 
+
 //instanciamento do model para aluno
 const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
 
@@ -61,6 +62,25 @@ router.post('./admin/alunoadd', (req, res)=>{
       res.redirect('.admin/aluno')
    })
 })
+
+//-----------------------------------------------------------------------------
+//Aqui serão as rotas para listar  aluno
+
+router.get('/aluno-listar', (req, res)=>{
+  res.render('./admin/aluno-listar')
+})
+
+//-----------------------------------------------------------------------------
+//Aqui as rotas para editar aluno.
+
+router.get('/aluno-editar', (req, res)=>{
+  res.render('./admin/alunoedit')
+})
+
+router.post('./admin/alunoedit', (req, res)=>{
+  
+})
+
 
 
 
