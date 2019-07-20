@@ -1,7 +1,7 @@
 const express  = require('express')
 const mongoose = require('mongoose')
 const router   = express.Router()
-require('../models/Aluno')  //requermento do arquivo alunos que será usado
+require('../models/Aluno')  //requerimento do arquivo alunos que será usado
 const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
 
 router.get('/',(req, res)=>{
@@ -59,11 +59,11 @@ router.post('/alunoadd', (req, res)=>{
 
 //rotas para listagem de alunos
 router.get("/aluno-editar", (req, res)=>{
-  res.render("./admin/alunoedit")
+  res.render("/admin/alunoedit")
 })
 
 router.post("/", (req, res)=>{
-  Aluno.find().then((alunos:alunos)=>{}).catch((err)=>{})  
+  Aluno.find().then((alunos:alunos)=>{}).catch((err)=>{})
 })
 
 
