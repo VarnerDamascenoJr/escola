@@ -36,49 +36,45 @@ router.post('./admin/alunoadd', (req, res)=>{
  if (!req.body.nomePai || typeof req.body.nomePai == null    || req.body.nomePai == undefined) {erros.push({texto:"Nome do pai é obrigatório"})}
  if (!req.body.idade   || typeof req.body.idade == null      || req.body.idade   == undefined ) { erros.push({texto:"Idade é campo obrigatório"})}
  if (erros.length > 0) { res.render('/admin/alunoadd', {erros: erros}) }
-
-   const novoAluno = {
-     nome: req.body.nome,
-     idade: req.body.idade,
-     turno: req.body.turno,
-     anoEnsino: req.body.anoEnsino,
-     anoEntrada: req.body.anoEntrada,
-     anoSaida: req.body.anoSaida,
-     nomePai: req.body.nomePai,
-     nomeMae: req.body.nomeMae,
-     telefone: req.body.telefone
+   else {
+     const novoAluno = {
+       nome: req.body.nome,
+       idade: req.body.idade,
+       turno: req.body.turno,
+       anoEnsino: req.body.anoEnsino,
+       anoEntrada: req.body.anoEntrada,
+       anoSaida: req.body.anoSaida,
+       nomePai: req.body.nomePai,
+       nomeMae: req.body.nomeMae,
+       telefone: req.body.telefone
+     }
+     //Consta-se aqui o instanciamento de um novo aluno a partir da variável
+     //novoAluno e então será armazenada dentro do banco de dados e feito os
+     //tratamentos necessários. Caso seja adicionado com sucesso, aparecerá um
+     //cookie informando que foi adicionado e caso não seja, então, aparecerá
+     //outro informando que não foi informado. Depois haverá direcionamento para
+     // a página de cadastro.
+     new Aluno(novoAluno).save().then(()=>{
+        req.flash("success_msg", "Aluno cadastrado com sucesso.")
+        res.redirect(".admin/aluno")
+     }).catch((err)=>{
+        req.flash("error_msg", "Aluno não cadastrado"+err)
+        res.redirect('.admin/aluno')
+     })
    }
-   //Consta-se aqui o instanciamento de um novo aluno a partir da variável
-   //novoAluno e então será armazenada dentro do banco de dados e feito os
-   //tratamentos necessários. Caso seja adicionado com sucesso, aparecerá um
-   //cookie informando que foi adicionado e caso não seja, então, aparecerá
-   //outro informando que não foi informado. Depois haverá direcionamento para
-   // a página de cadastro.
-   new Aluno(novoAluno).save().then(()=>{
-      req.flash("success_msg", "Aluno cadastrado com sucesso.")
-      res.redirect(".admin/aluno")
-   }).catch((err)=>{
-      req.flash("error_msg", "Aluno não cadastrado"+err)
-      res.redirect('.admin/aluno')
-   })
 })
 
 //-----------------------------------------------------------------------------
-//Aqui serão as rotas para listar  aluno
-
-router.get('/aluno-listar', (req, res)=>{
-  res.render('./admin/aluno-listar')
-})
 
 //-----------------------------------------------------------------------------
 //Aqui as rotas para editar aluno.
 
-router.get('/aluno-editar', (req, res)=>{
+router.get('/aluno-editar/', (req, res)=>{
   res.render('./admin/alunoedit')
 })
 
 router.post('./admin/alunoedit', (req, res)=>{
-  
+
 })
 
 
