@@ -10,17 +10,24 @@ const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
 
 
 
+
+//Aqui serão todas as rotas referidas para os alunos.
+router.get("/aluno", (req, res)=>{
+  //esta parte servirá para listar aluno
+  Aluno.findOne().then((alunos)=>{
+    res.render('./admin/alunocadastro',{alunos:alunos})
+  }).catch((err)=>{
+
+  })
+
+})
+
 //rota para acesso à página de adição que será feita pelo post
 router.get('/alunoadd',(req, res)=>{
   res.render('./admin/alunoadd')
 })
-//Aqui serão todas as rotas referidas para os alunos.
-router.get("/aluno", (req, res)=>{
-  res.render('./admin/alunocadastro')
-})
-
 //rota post para adição de novo aluno
-router.post('./admin/alunoadd', (req, res)=>{
+router.post('/aluno/novo', (req, res)=>{
  var erros = []
 // Aqui são dados alguns tratamentos importantes no momento do preenchimento do
 //formulário para criação de estudante. Basicamente, estes campos devem ser
@@ -35,7 +42,7 @@ router.post('./admin/alunoadd', (req, res)=>{
  if (!req.body.nomeMae || typeof req.body.nomeMae == null    || req.body.nomeMae == undefined) {erros.push({texto:"Nome da mãe é obrigatório"})}
  if (!req.body.nomePai || typeof req.body.nomePai == null    || req.body.nomePai == undefined) {erros.push({texto:"Nome do pai é obrigatório"})}
  if (!req.body.idade   || typeof req.body.idade == null      || req.body.idade   == undefined ) { erros.push({texto:"Idade é campo obrigatório"})}
- if (erros.length > 0) { res.render('/admin/alunoadd', {erros: erros}) }
+ if (erros.length > 0) { res.render('/admin/aluno', {erros: erros}) }
    else {
      const novoAluno = {
        nome: req.body.nome,
@@ -56,10 +63,10 @@ router.post('./admin/alunoadd', (req, res)=>{
      // a página de cadastro.
      new Aluno(novoAluno).save().then(()=>{
         req.flash("success_msg", "Aluno cadastrado com sucesso.")
-        res.redirect(".admin/aluno")
+        res.redirect("admin/aluno")
      }).catch((err)=>{
         req.flash("error_msg", "Aluno não cadastrado"+err)
-        res.redirect('.admin/aluno')
+        res.redirect('admin/aluno')
      })
    }
 })
