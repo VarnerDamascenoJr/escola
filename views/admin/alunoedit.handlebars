@@ -1,0 +1,42 @@
+{{#each erros}}
+ <div class="alert alert-danger">
+  {{texto}}
+</div>
+  {{else}}
+   {{/each}}
+<div class="card">
+  <div class="card-body">
+    <h3>Editar aluno:</h3>
+    <form class="" action="/admin/alunoadd" method="post">
+
+
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" value="{{alunos.nome}}">
+
+        <label for="idade">Idade:</label>
+        <input type="text" name="idade" id="idade" value="{{alunos.idade}}">
+
+        <label for="turno">Turno:</label>
+        <input type="text" name="turno" id="turno" value="{{alunos.turno}}">
+
+        <label for="anoEnsino">Ano de estudo:</label>
+        <input type="text" name="anoEnsino" id="anoEnsino" value="{{alunos.anoEnsino}}">
+
+        <label for="anoEntrada">Ano de entrada:</label>
+        <input type="text" name="anoEntrada" id="anoEntrada" value="{{alunos.anoEntrada}}">
+
+        <label for="anoSaida">Ano de saída:</label>
+        <input type="text" name="anoSaida" id="anoSaida" value="{{alunos.anoSaida}}">
+
+        <label for="nomePai">Nome do pai:</label>
+        <input type="text" name="nomePai" id="nomePai" value="{{alunos.nomePai}}">
+
+        <label for="nomeMae">Nome da mãe:</label>
+        <input type="text" name="nomeMae" id="nomeMae" value="{{alunos.nomeMae}}">
+
+        <label for="telefone">Telefone de contato:</label>
+        <input type="text" name="telefone" id="telefone" value="{{alunos.telefone}}">
+            <button type="submit" name="button" class="btn btn-sucess">Editar</button>
+    </form>
+  </div>
+</div>
