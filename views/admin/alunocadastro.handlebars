@@ -1,2 +1,10 @@
 <h3>Novo aluno</h3>
-<a href="/admin/alunoadd" class="btn btn-success">Cadastrar</a>
+<a href="/admin/aluno/alunoadd" class="btn btn-success">Cadastrar</a>
+
+{{#each alunos}}
+    <h4>Aluno: {{alunos.nome}}</h4>
+    <h4>turno: {{alunos.turno}}</h4>
+    <h4>Ano de ensio: {{alunos.anoEnsino}}</h4>
+{{else}}
+
+{{/each}}
