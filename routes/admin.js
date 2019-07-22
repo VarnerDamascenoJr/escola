@@ -76,12 +76,19 @@ router.post('/aluno/novo', (req, res)=>{
 //-----------------------------------------------------------------------------
 //Aqui as rotas para editar aluno.
 
-router.get('/aluno-editar/', (req, res)=>{
-  res.render('./admin/alunoedit')
+router.get('aluno/aluno-editar/:id', (req, res)=>{
+  Aluno.findOne({_id: req.params.id}).then((alunos)=>{
+    res.render('/admin/alunoedit')
+
+  }).catch((err)=>{
+    req.flash("error_msg", "Erro ao editar aluno")
+    res.redirect('/admin/alunoedit')
+  })
+
 })
 
 router.post('./admin/alunoedit', (req, res)=>{
-
+    
 })
 
 
