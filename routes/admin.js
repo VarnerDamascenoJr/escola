@@ -10,17 +10,20 @@ const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
 router.get('/', (req, res)=>{
   res.render('./admin/index')
 })
-
+//Aqui consta a página que irá me direcionar para a página de cadastro de novo
+//aluno para que eu possa armazená-lo no banco de dados. Ou seja, Se notar bem,
+//todo procedimento de adição de aluno resultará de uma três fases.
 router.get('/aluno', (req, res)=>{
-  res.render('./admin/')
+  res.render('./admin/aluno')
 })
-
+//Esta parte renderiza para a página onde serão pegos os dados que serão
+//enviados via página post e armazenados no banco de dados.
 router.get('/aluno/add', (req, res)=>{
   res.render('./admin/alunoadd')
 })
 
-
-router.post('/novo',(req, res)=>{
+//rota post para adição de aluno dentro do banco de dados.
+router.post('./aluno/novo',(req, res)=>{
   var erros = []
 
   if (!req.body.nome ||typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:'Defina o nome corretamente'})}
