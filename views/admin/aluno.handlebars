@@ -1,0 +1,22 @@
+<h2>Listar aluno</h2>
+<hr>
+<a href="/admin/aluno/add">
+<button type="button" name="button" class="btn btn-success">Adicionar Aluno</button>
+</a>
+
+{{#each alunos}}
+<div class="card-body mt-4">
+  <h4>Nome:{{nome}}</h4>
+  <small>Turma:{{turma}}</small>
+  <small>Turno: {{turno}}</small>
+  <br>
+<a href="/admin/categorias/edit/{{_id}}" class="btn btn-success mt-4">Editar Aluno</a>
+
+<form class="" action="/admin/aluno/deletar" method="POST">
+  <input type="hidden" name="id" value="{{_id}}">
+  <button  type="submit" name="button" class="btn btn-danger mt-2" >Deletar Categoria</button>
+</form>
+</div>
+{{else}}
+<h4 class="mt-3">Nenhum aluno registrado</h4>
+{{/each}}
