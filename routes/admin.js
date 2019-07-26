@@ -57,6 +57,12 @@ router.post('/aluno/novo',(req, res)=>{
 //-----------------------------------------------------------------------------
 //ESTA PARTE PARA POST DE EDIÇÃO DE ALUNO.
 
+//Tenho aqui a rota para acesso à página de edição de aluno. Nota-se que será
+//pego o id de cada aluno dinamicamente e assim a podificá-lo.
+router.get('/aluno/edit', (req, res)=>{
+  res.render('./admin/alunoedit')
+})
+
 
 
 
