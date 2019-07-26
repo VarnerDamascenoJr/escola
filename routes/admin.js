@@ -69,11 +69,17 @@ router.post('/aluno/editar', (req, res)=>{
 
 //-----------------------------------------------------------------------------
 //ESTA PARTE PARA DELETAR ALUNO
-
+//Rota post para deletar aluno a partir do id pego dinamicamente.
+//Também, um tratamento padrão para sucesso e erro, que serão exibidos a partir
+//da páginas contida na pasta partial.
 router.post('/aluno/deletar', (req, res)=>{
   Aluno.remove({_id: req.body.id}).then(()=>{
-    
-  }).catch()
+    req.flash("success_msg","Aluno deletado com sucesso.")
+    res.redirect('') //ainda falta adicionar a rota de direcionamento
+  }).catch((err)=>{
+    req.flash("error_msg", "Houve erro erro interno e não foi possível deletar")
+    res.redirect('')
+  })
 })
 
 
