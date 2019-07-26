@@ -23,7 +23,7 @@ router.get('/aluno/add', (req, res)=>{
 })
 
 //rota post para adição de aluno dentro do banco de dados.
-router.post('./aluno/novo',(req, res)=>{
+router.post('/aluno/novo',(req, res)=>{
   var erros = []
 
   if (!req.body.nome ||typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:'Defina o nome corretamente'})}
@@ -53,6 +53,10 @@ router.post('./aluno/novo',(req, res)=>{
   })
   }
 })
+
+//-----------------------------------------------------------------------------
+//ESTA PARTE PARA POST DE EDIÇÃO DE ALUNO.
+
 
 
 
