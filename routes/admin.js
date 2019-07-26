@@ -67,6 +67,15 @@ router.post('/aluno/editar', (req, res)=>{
   res.send("mensagem teste")
 })
 
+//-----------------------------------------------------------------------------
+//ESTA PARTE PARA DELETAR ALUNO
+
+router.post('/aluno/deletar', (req, res)=>{
+  Aluno.remove({_id: req.body.id}).then(()=>{
+    
+  }).catch()
+})
+
 
 
 
