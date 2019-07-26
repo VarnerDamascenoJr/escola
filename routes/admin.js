@@ -63,6 +63,10 @@ router.get('/aluno/edit', (req, res)=>{
   res.render('./admin/alunoedit')
 })
 
+router.post('/aluno/editar', (req, res)=>{
+  res.send("mensagem teste")
+})
+
 
 
 
