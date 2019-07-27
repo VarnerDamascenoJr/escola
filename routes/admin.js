@@ -75,10 +75,10 @@ router.post('/aluno/editar', (req, res)=>{
 router.post('/aluno/deletar', (req, res)=>{
   Aluno.remove({_id: req.body.id}).then(()=>{
     req.flash("success_msg","Aluno deletado com sucesso.")
-    res.redirect('') //ainda falta adicionar a rota de direcionamento
+    res.redirect('/admin/aluno') //ainda falta adicionar a rota de direcionamento
   }).catch((err)=>{
     req.flash("error_msg", "Houve erro erro interno e não foi possível deletar")
-    res.redirect('')
+    res.redirect('/admin/aluno')
   })
 })
 
