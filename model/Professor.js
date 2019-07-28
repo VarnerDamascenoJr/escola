@@ -22,7 +22,7 @@ const Professor = new Schema({
     type: Number,
     required: true
   },
-  focoEnsino:{
+  formacao:{
     type: String,
     required: true
   },
