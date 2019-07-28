@@ -1,5 +1,12 @@
 const express = require('express')
-router02 = express.Router()
+const router02 = express.Router()
 
+router02.get('/professor', (req, res)=>{
+  res.render('/admin02/professor')
+})
 
-module.exports = router
+router02.get('/professor/add', (req, res)=>{
+  res.render('/admin02/professoradd')
+})
+
+module.exports = router02
