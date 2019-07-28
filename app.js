@@ -10,6 +10,8 @@ const path       = require('path')
 const admin02    = require('./routes/admin02')
 require('./models/Aluno')
 const Aluno = mongoose.model('alunos')
+require('./models/Professor')
+const Professor = mongoose.model('professores')
 
 
 //CONFIGURAÇÕES
