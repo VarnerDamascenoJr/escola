@@ -28,6 +28,10 @@ const Professor = new Schema({
   },
   disciplina02:{
     type: String
+  },
+  telefone:{
+    type: Number,
+    required: true
   }
 })
 
