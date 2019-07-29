@@ -59,7 +59,7 @@ const Professor = mongoose.model('professores')
       //rotas
 
         app.use('/admin', admin) //Aqui está definido o meu primeiro grupo de rotas.
-        app.use('/admin02, admin02')//Aqui será meu segundo conjunto de rotas
+        app.use('/admin02', admin02)//Aqui será meu segundo conjunto de rotas
 
             //Aqui estou informando a porta que será usada nesta aplicação
             //também estou mostrando a mensagem caso o meu servidor seja acessado com
