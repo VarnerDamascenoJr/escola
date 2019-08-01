@@ -43,6 +43,10 @@ router02.get('/professor/edit', (req, res)=>{
   res.render('./admin02/professoredit')
 })
 
+router02.post('/professor/editar', (req, res)=>{
+  //Ainda faltante;
+})
+
 //  -----rotas para remoção de professor ---------------------------------
 
 module.exports = router02
