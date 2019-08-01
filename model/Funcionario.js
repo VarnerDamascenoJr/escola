@@ -34,4 +34,4 @@ const Funcionario = new Shema{
 
 }
 
-mongoose.model('funcionario', Funcionario)
+mongoose.model('funcionarios', Funcionario)
