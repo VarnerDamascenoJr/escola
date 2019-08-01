@@ -1,5 +1,9 @@
 const express = require('express')
 const router02 = express.Router()
+const mongoose = require('mongoose')
+require('../models/Professor')
+const Professor = mongoose.model('professores')
+
 
 router02.get('/professor', (req, res)=>{
   res.render('./admin02/professor')
@@ -16,7 +20,22 @@ router02.post('/professor/novo', (req, res)=>{
    if (!req.body.disciplina || typeof req.body.disciplina == undefined || req.body.disciplina == null) {erros.push({texto:"Digite a disciplina corretamente."})}
    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Digite a idade corretamente."}) }
    else {
-    //Aqui ficará a inserção do professor.
+    const novoProfessor = {
+      nome: req.body.nome,
+      idade: req.body.idade,
+      disciplina: req.body.disciplina,
+      cargaHoraria: req.body.cargaHoraria,
+      anosExperiencia: req.body.anosExperiencia,
+      formacao: req.body.formacao,
+      disciplina02: req.body.disciplina02,
+      telefone: req.body.telefone
+    }
+    new Professor(novoProfessor).save().then(()=>{
+      req.flash("success_msg", "Cadastrado com sucesso")
+    //  res.redirect("")
+  }).catch((err)=>{
+    res.flash("error_msg","Erro ao cadastrar")
+  })
    }
 })
 //-------------------rotas para edição-------------------------------------
