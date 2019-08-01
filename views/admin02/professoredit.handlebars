@@ -1,0 +1,41 @@
+{{#each erros}}
+ <div class="alert alert-danger">
+  {{texto}}
+</div>
+  {{else}}
+   {{/each}}
+
+<div class="card">
+  <div class="card-body">
+    <h3>Cadastrar novo Professor:</h3>
+    <form class="" action="/admin02/professor/novo" method="POST">
+        <input type="hidden" name="{{_id}}" value="">
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" value="{{professores.nome}}"><br>
+
+        <label for="idade">Idade:</label>
+        <input type="text" name="idade" id="idade" value="{{professores.idade}}"><br>
+
+        <label for="disciplina">Disciplina:</label>
+        <input type="text" name="disciplina" id="disciplina" value="{{professores.disciplina}}"><br>
+
+        <label for="cargaHoraria">Carga horária:</label>
+        <input type="text" name="cargaHoraria" id="cargaHoraria" value="{{professores.cargaHoraria}}"><br>
+
+        <label for="anosExperiencia">Tempo de experiência:</label>
+        <input type="text" name="anosExperiencia" id="anosExperiencia" value="{{professores.anosExperiencia}}"><br>
+
+        <label for="formacao">Formação:</label>
+        <input type="text" name="formacao" id="formacao" value="{{professores.formacao}}"><br>
+
+        <label for="disciplina02">disciplina optativa:</label>
+        <input type="text" name="disciplina02" id="disciplina02" value="{{professores.disciplina02}}"><br>
+
+        <label for="telefone">Telefone de contato:</label>
+        <input type="text" name="telefone" id="telefone" value="{{professores.telefone}}"><br>
+
+
+            <button type="submit" name="button" class="btn btn-success mt-4">Cadastrar</button>
+    </form>
+  </div>
+</div>
