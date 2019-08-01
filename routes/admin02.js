@@ -39,8 +39,8 @@ router02.post('/professor/novo', (req, res)=>{
    }
 })
 //-------------------rotas para edição-------------------------------------
-router02.get('/', (req, res)=>{
-  res.render('./admin02/')
+router02.get('/professor/edit', (req, res)=>{
+  res.render('./admin02/professoredit')
 })
 
 //  -----rotas para remoção de professor ---------------------------------
