@@ -13,7 +13,8 @@ require('./models/Aluno')
 const Aluno = mongoose.model('alunos')
 require('./models/Professor')
 const Professor = mongoose.model('professores')
-
+require('./models/Funcionario')
+const Funcionario = mongoose.model('funcionarios')
 
 //CONFIGURAÇÕES
      //Body-parser
