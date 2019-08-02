@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema
 
 
-const Funcionario = new Shema{
+const Funcionario = new Schema({
   nome:{
     type:String,
     required: true
@@ -32,6 +32,6 @@ const Funcionario = new Shema{
     required:true
   }
 
-}
+})
 
 mongoose.model('funcionarios', Funcionario)
