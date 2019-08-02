@@ -1,0 +1,22 @@
+<h2>Listar Funcionário</h2>
+<hr>
+<a href="/admin02/funcionario/add">
+<button type="button" name="button" class="btn btn-success">Adicionar Funcionário</button>
+</a>
+
+{{#each professor}}
+<div class="card-body mt-4">
+  <h4>Nome:{{nome}}</h4>
+  <small>Turma:{{turma}}</small>
+  <small>Turno: {{turno}}</small>
+  <br>
+<a href="/admin02/funcionario/edit/{{_id}}" class="btn btn-success mt-4">Editar Funcionário</a>
+
+  <form class="" action="/admin02/funcionario/deletar" method="POST">
+    <input type="hidden" name="id" value="{{_id}}">
+    <button  type="submit" name="button" class="btn btn-danger mt-2" >Deletar Funcionário</button>
+  </form>
+</div>
+{{else}}
+<h4 class="mt-3">Nenhum Funcionário registrado</h4>
+{{/each}}
