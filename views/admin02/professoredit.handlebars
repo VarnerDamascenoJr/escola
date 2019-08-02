@@ -8,7 +8,7 @@
 <div class="card">
   <div class="card-body">
     <h3>Cadastrar novo Professor:</h3>
-    <form class="" action="/admin02/professor/editar" method="POST">
+    <form class="" action="/admin02/professor/novo" method="POST">
         <input type="hidden" name="{{_id}}" value="">
         <label for="nome">Nome:</label>
         <input type="text" name="nome" id="nome" value="{{professores.nome}}"><br>
@@ -35,7 +35,7 @@
         <input type="text" name="telefone" id="telefone" value="{{professores.telefone}}"><br>
 
 
-            <button type="submit" name="button" class="btn btn-success mt-4">Editar</button>
+            <button type="submit" name="button" class="btn btn-success mt-4">Cadastrar</button>
     </form>
   </div>
 </div>
