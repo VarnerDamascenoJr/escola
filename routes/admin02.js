@@ -3,7 +3,8 @@ const router02 = express.Router()
 const mongoose = require('mongoose')
 require('../models/Professor')
 const Professor = mongoose.model('professores')
-
+require('../models/Funcionario')
+const Funcionario = mongoose.model('funcionarios')
 
 router02.get('/professor', (req, res)=>{
   res.render('./admin02/professor')
@@ -48,5 +49,33 @@ router02.post('/professor/editar', (req, res)=>{
 })
 
 //  -----rotas para remoção de professor ---------------------------------
+
+
+//--------AQUI SERÃO DADAS AS CONFIGURAÇÕES PARA FUNCIONARIO--- ----------
+  //----Rotas necessárias para o uso nos funcionários --------------------
+
+router02.get('/funcionario', (req, res)=>{
+  res.render('./admin02/funcionario')
+})
+
+router02.get('/funcionario/add', (req, res)=>{
+  res.render('./admin02/funcionarioadd')
+})
+
+router02.post('/funcionario/novo', (req, res)=>{
+  //Aqui terei o acesso ao banco para cadastro
+})
+
+router02.get('/funcionario/edit', (req, res)=>{
+  res.render('./admin02/funcionarioedit')
+})
+
+router02.post('/funcionario/edit/:id', (req, res)=>{
+
+})
+router02.post('/funcionario/remover', (req, res)=>{
+  //Aqui sera removido
+})
+
 
 module.exports = router02
