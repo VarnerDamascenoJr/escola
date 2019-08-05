@@ -98,7 +98,14 @@ router02.post('/funcionario/edit/:id', (req, res)=>{
 
 })
 router02.post('/funcionario/remover', (req, res)=>{
-  //Aqui sera removido
+  Funcionario.remove({_id: req.body.id}).then(()=>{
+    req.flash("success_msg", "Funcionário deletado com sucesso.")
+    res.redirect("/admin02/funcionario")
+  }).catch((err)=>{
+    req.flash("error_msg", "Houve erro interno, não foi possível deletar funcionário.")
+    res.redirect("/admin02/funcionario")
+  })
+
 })
 
 
