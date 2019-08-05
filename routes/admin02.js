@@ -63,7 +63,26 @@ router02.get('/funcionario/add', (req, res)=>{
 })
 
 router02.post('/funcionario/novo', (req, res)=>{
-  //Aqui terei o acesso ao banco para cadastro
+  var erros = []
+  if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) { erros.push({texto:"Digite o nome corretamente."})}
+  //Por enqunto coloquei somente um, mas colocarei vários tratamentos
+  else {
+    const novoFuncionario = {
+      nome: req.body.nome,
+      idade: req.body.idade,
+      funcao: req.body.funcao,
+      dataEntrada: req.body.dataEntrada,
+      salario: req.body.salario,
+      turnoTrabalho: req.body.salario,
+      regimeTrabalho: req.body.regimeTrabalho
+    }
+    Funcionario(novoFuncionario).save().then(()=>{
+      req.flash("success_msg", "Funcionário cadastrado com sucesso.")
+      res.redirect("/admin02/funcionario")
+    }).catch((err)=>{
+      console.log("Erro ao cadastrar funcionário."+err)
+    })
+  }
 })
 
 router02.get('/funcionario/edit', (req, res)=>{
