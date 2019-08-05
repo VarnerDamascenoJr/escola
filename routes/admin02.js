@@ -98,10 +98,17 @@ router02.post('/funcionario/edit/:id', (req, res)=>{
 
 })
 router02.post('/funcionario/remover', (req, res)=>{
+  //Aqui é pego o model de funcionário e acessado o banco de dados .
+  //Nisso, é pego o funcionário a partir do seu id que será pego dinamicamente
+  //na página handlebars que simula o html.
   Funcionario.remove({_id: req.body.id}).then(()=>{
+    //Caso o funcionário seja deletado com sucesso então haverá
+    //esta mensagem e a página será redirecionada para o inicial de funcionário.
     req.flash("success_msg", "Funcionário deletado com sucesso.")
     res.redirect("/admin02/funcionario")
   }).catch((err)=>{
+    //Caso haja algum erro ao se tentar removê-lo, então, outra mensagem sera
+    //exibida e havera direcionamento para a página inicial de funcionário.
     req.flash("error_msg", "Houve erro interno, não foi possível deletar funcionário.")
     res.redirect("/admin02/funcionario")
   })
