@@ -50,7 +50,20 @@ router02.post('/professor/editar', (req, res)=>{
 
 //  -----rotas para remoção de professor ---------------------------------
 router02.post('/professor/deletar', (req, res)=>{
-  Professor.remove().then().catch()
+  //O id do professor será pego dinameicamente e então será buscado a
+  // partir do remove e deletado caso esteja contigo no banco de dados.
+  Professor.remove({_id: req.body.id}).then(()=>{
+    //Tratamento caso o professor seja removido com sucesso do banco de dados.
+    //Após ser deletado, então, o professor será redirecionado para a página
+    //principal de professor.
+   req.flash("success_msg", "Professor deletado com sucesso.")
+   res.redirect('/admin02/professor')
+ }).catch((err)=>{
+   //Aqui é o tratamento caso o professor nãoseja removido. Assim, será exibida
+   //uma mensagem de erro e serei direcionado para a página principal de professor.
+   req.flash("error_msg", "Erro ao remover professor.")
+   res.redirect('/admin02/professor')
+ })
 })
 
 //--------AQUI SERÃO DADAS AS CONFIGURAÇÕES PARA FUNCIONARIO--- ----------
