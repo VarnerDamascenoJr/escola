@@ -35,7 +35,7 @@ router02.post('/professor/novo', (req, res)=>{
       req.flash("success_msg", "Cadastrado com sucesso")
     //  res.redirect("")
   }).catch((err)=>{
-    res.flash("error_msg","Erro ao cadastrar")
+     console.log("Erro ao cadastrar professor"+err)
   })
    }
 })
