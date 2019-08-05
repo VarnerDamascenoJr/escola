@@ -67,6 +67,7 @@ router02.post('/funcionario/novo', (req, res)=>{
   if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) { erros.push({texto:"Digite o nome corretamente."})}
   //Por enqunto coloquei somente um, mas colocarei vários tratamentos
   else {
+    //para casatradmento no banco de dados nas seguites informações sobre funcionários.
     const novoFuncionario = {
       nome: req.body.nome,
       idade: req.body.idade,
@@ -76,11 +77,15 @@ router02.post('/funcionario/novo', (req, res)=>{
       turnoTrabalho: req.body.salario,
       regimeTrabalho: req.body.regimeTrabalho
     }
+    //Aqui uso o model para que os requerimentos sejam postos dentro do banco de
+    //dados mongoose. Também, há o tratamento após adicionar e caso o cadastramento
+    //nao seja possível, também haverá tratamento.
     Funcionario(novoFuncionario).save().then(()=>{
       req.flash("success_msg", "Funcionário cadastrado com sucesso.")
       res.redirect("/admin02/funcionario")
     }).catch((err)=>{
       console.log("Erro ao cadastrar funcionário."+err)
+      res.redirect("/admin02/funcionario")
     })
   }
 })
