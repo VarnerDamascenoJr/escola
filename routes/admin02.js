@@ -49,7 +49,9 @@ router02.post('/professor/editar', (req, res)=>{
 })
 
 //  -----rotas para remoção de professor ---------------------------------
-
+router02.post('/professor/deletar', (req, res)=>{
+  Professor.remove().then().catch()
+})
 
 //--------AQUI SERÃO DADAS AS CONFIGURAÇÕES PARA FUNCIONARIO--- ----------
   //----Rotas necessárias para o uso nos funcionários --------------------
