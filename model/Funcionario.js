@@ -30,6 +30,10 @@ const Funcionario = new Schema({
   regimeTrabalho:{
     type:String,
     required:true
+  },
+  telefone:{
+    type: Number,
+    required:true
   }
 
 })
