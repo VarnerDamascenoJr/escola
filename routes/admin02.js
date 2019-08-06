@@ -40,7 +40,7 @@ router02.post('/professor/novo', (req, res)=>{
    }
 })
 //-------------------rotas para edição-------------------------------------
-router02.get('/professor/edit', (req, res)=>{
+router02.get('/professor/edit/:id', (req, res)=>{
   res.render('./admin02/professoredit')
 })
 
@@ -105,11 +105,11 @@ router02.post('/funcionario/novo', (req, res)=>{
   }
 })
 
-router02.get('/funcionario/edit', (req, res)=>{
+router02.get('/funcionario/edit/:id', (req, res)=>{
   res.render('./admin02/funcionarioedit')
 })
 
-router02.post('/funcionario/edit/:id', (req, res)=>{
+router02.post('/funcionario/edit/editar', (req, res)=>{
 
 })
 router02.post('/funcionario/remover', (req, res)=>{
