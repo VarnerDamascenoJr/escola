@@ -110,7 +110,7 @@ router02.get('/funcionario/edit/:id', (req, res)=>{
 })
 
 router02.post('/funcionario/edit/editar', (req, res)=>{
-
+  
 })
 router02.post('/funcionario/remover', (req, res)=>{
   //Aqui é pego o model de funcionário e acessado o banco de dados .
