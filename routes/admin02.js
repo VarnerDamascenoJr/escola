@@ -44,19 +44,31 @@ router02.get('/professor/edit/:id', (req, res)=>{
     Professor.findOne({_id: req.params.id}).then((professores)=>{
       res.render('/admin02/professoredit', {professores:professores})
     }).catch((err)=>{
-      req.flash('error_msg', "Não foi possível editar o cadastro.")
+      req.flash('error_msg', "Não foi possível encontrar professor.")
       res.redirect('/admin02/professor')
     })
 })
 
 router02.post('/professor/editar', (req, res)=>{
+//Primeiro procedimento é pegar o encontrar o documento de professor que queroo
+// a partir do id qie será pego dinamicamente.
    Professor.findOne({_id: req.body.id}).then((professores)=>{
+     //Para o tratamento das validações. Faço um array onde estará armazenado
+     //cada tiop de erro encontrado, que será pego no formulário.
       var errors = []
+      //Aqui é o tratamento a cada dado pego do formulário e haverá uma varável
+      //'texto' que receberá um texto indicando o tipo de erro a fui submetido.
     if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:"Digite o nome corretamente."}) }
     if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Entre com sua idade corretamente."})}
+    if (!req.body.telefone || typeof req.body.telefone == undefined || req.body.telefone null || telefone.length < 11 ) { erros.push({texto:"Corrija o telefone."})}
+      //Por fim, após ser verificado que meu erro é maior que zero, então,
+      //renderizo a página novamente; mas agora passo os erros que serão
+      //devidamente mostrados na página em formato error.
+    if (erros.length > 0 ) { res.render("/admin02/professoredit", {erros:errors})}
+    //Posso fazer vários outros tratamentos mas usarei esses por enquanto.
     else {
-
-
+      //Aqui pegará minhas novas variáveis pegas no formulário
+      //e serão armazenadas.
      professores.nome = req.body.nome,
      professores.idade = req.body.idade,
      professores.disciplina = req.body.disciplina,
@@ -64,9 +76,23 @@ router02.post('/professor/editar', (req, res)=>{
      professores.anosExperiencia = req.body.anosExperiencia,
      professores.formacao = req.body.formacao,
      professores.telefone = req.body.telefone
+     //Por fim, serão salvas e haverá tratamento de erros.
+     professores.save().then(()=>{
+       //Caso salvo com sucesso, então, haverá exibição da mensagem de sucesso
+       //e haverá redirecinamento para a página principal de professor.
+       req.flash("success_msg", "Professor editado com sucesso.")
+       res.redirect('/admin02/professor')
+     }).catch((err)=>{
+       //O mesmo será feito para caso haja um erro.
+       req.flash("error_msg", "Erro ao editar professor.")
+       res.redirect('/admin02/professor')
+     })
 }
 
-   }).catch()
+}).catch((err)=>{
+  req.flash("error_msg", "Houve erro interno ao tentar editar professor.")
+  res.redirect('/admin02/professor')
+})
 })
 
 //  -----rotas para remoção de professor ---------------------------------
