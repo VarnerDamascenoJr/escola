@@ -41,8 +41,8 @@ router02.post('/professor/novo', (req, res)=>{
 })
 //-------------------rotas para edição-------------------------------------
 router02.get('/professor/edit/:id', (req, res)=>{
-    Professor.findOne({_id: req.params.id}).then((professor)=>{
-      res.render('/admin02/professoredit', {professor:professor})
+    Professor.findOne({_id: req.params.id}).then((professores)=>{
+      res.render('/admin02/professoredit', {professores:professores})
     }).catch((err)=>{
       req.flash('error_msg', "Não foi possível editar o cadastro.")
       res.redirect('/admin02/professor')
@@ -50,7 +50,21 @@ router02.get('/professor/edit/:id', (req, res)=>{
 })
 
 router02.post('/professor/editar', (req, res)=>{
-   Professor.findOne({_id: req.body.id}).then((professor)=>{
+   Professor.findOne({_id: req.body.id}).then((professores)=>{
+      var errors = []
+    if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:"Digite o nome corretamente."}) }
+    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Entre com sua idade corretamente."})}
+    else {
+
+
+     professores.nome = req.body.nome,
+     professores.idade = req.body.idade,
+     professores.disciplina = req.body.disciplina,
+     professores.cargaHoraria = req.body.cargaHoraria,
+     professores.anosExperiencia = req.body.anosExperiencia,
+     professores.formacao = req.body.formacao,
+     professores.telefone = req.body.telefone
+}
 
    }).catch()
 })
