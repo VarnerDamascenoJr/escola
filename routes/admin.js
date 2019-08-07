@@ -70,28 +70,35 @@ router.get('/aluno/edit', (req, res)=>{
 })
 
 router.post('/aluno/editar', (req, res)=>{
+   //Aqui será pego aluno a partir do id do aluno.
   Aluno.findOne({_id: req.body.id}).then((alunos)=>{
+    //Array que armazenará os erros.
     var erros = []
     //validação que ainda falta ser terminada.
     if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:"Digite o nome do aluno corretamente."})}
     if (erros.length > 0 ) {res.render("/admin/alunoedit", {erros: erros})}
     else {
-    alunos.nome = nome: req.body.nome,
-    alunos.idade =  idade: req.body.idade,
-    alunos.turno =  turno: req.body.turno,
-    alunos.anoEnsino =  anoEnsino: req.body.anoEnsino,
-    alunos.anoEntrada =  anoEntrada: req.body.anoEntrada,
-    alunos.anoSaida =  anoSaida: req.body.anoSaida,
-    alunos.nomePai =  nomePai: req.body.nomePai,
-    alunos.nomeMae =  nomeMae: req.body.nomeMae,
-    alunos.telefone =  telefone: req.body.telefone
-
+      //Para armazenamento das  novas variáveis pegas  no formulário.
+    alunos.nome = req.body.nome,
+    alunos.idade = req.body.idade,
+    alunos.turno = req.body.turno,
+    alunos.anoEnsino = req.body.anoEnsino,
+    alunos.anoEntrada = req.body.anoEntrada,
+    alunos.anoSaida = req.body.anoSaida,
+    alunos.nomePai = req.body.nomePai,
+    alunos.nomeMae = req.body.nomeMae,
+    alunos.telefone = req.body.telefone
+      //Salvar os novos dados para o usuário.
     alunos.save().then(()=>{
+      //Middleware para caso o aluno seja editado e salvo com sucesso.
       req.flash("success_msg", "Aluno editado com sucesso.")
+      //Redirecionamento de aluno após ser salvo corretamente.
       res.redirect("/admin/alunoedit")
     }).catch((err)=>{
+      //Caso haja erro ao salvar aluno, então, esta mensagem aparecerá.
       req.flash("error_msg", "Não foi possível editar aluno.")
-      res.redirect("/admin/alunoedit")
+      //E terei este direcionamento da página.
+      res.redirect("/admin/aluno")
     })
     }
   }).catch((err)=>{
