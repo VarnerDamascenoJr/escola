@@ -1,89 +1,155 @@
-const express  = require('express')
+const express = require('express')
+const router02 = express.Router()
 const mongoose = require('mongoose')
-const router   = express.Router()
+require('../models/Professor')
+const Professor = mongoose.model('professores')
+require('../models/Funcionario')
+const Funcionario = mongoose.model('funcionarios')
 
-//requerimento do arquivo alunos que será usado
-require('../models/Aluno')
-//instanciamento do model para aluno
-const Aluno    = mongoose.model('alunos') // instanciamento deste arquivo.
-
-router.get('/', (req, res)=>{
-  res.render('./admin/index')
-})
-//Aqui consta a página que irá me direcionar para a página de cadastro de novo
-//aluno para que eu possa armazená-lo no banco de dados. Ou seja, Se notar bem,
-//todo procedimento de adição de aluno resultará de uma três fases.
-router.get('/aluno', (req, res)=>{
-  res.render('./admin/aluno')
-})
-//Esta parte renderiza para a página onde serão pegos os dados que serão
-//enviados via página post e armazenados no banco de dados.
-router.get('/aluno/add', (req, res)=>{
-  res.render('./admin/alunoadd')
+router02.get('/professor', (req, res)=>{
+  res.render('./admin02/professor')
 })
 
-//rota post para adição de aluno dentro do banco de dados.
-router.post('/aluno/novo',(req, res)=>{
+router02.get('/professor/add', (req, res)=>{
+  res.render('./admin02/professoradd')
+})
+
+router02.post('/professor/novo', (req, res)=>{
   var erros = []
+   if (!req.body.nome || typeof req.body.nome ==undefined || req.body.nome == null ) { erros.push({texto:"Por favor,digite o nome corretamente."})}
+   if (!req.body.telefone || typeof req.body.telefone == undefined || req.body.telefone == null) {erros.push({texto:"Digite o telefone corretamente."})}
+   if (!req.body.disciplina || typeof req.body.disciplina == undefined || req.body.disciplina == null) {erros.push({texto:"Digite a disciplina corretamente."})}
+   if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Digite a idade corretamente."}) }
+   else {
+    const novoProfessor = {
+      nome: req.body.nome,
+      idade: req.body.idade,
+      disciplina: req.body.disciplina,
+      cargaHoraria: req.body.cargaHoraria,
+      anosExperiencia: req.body.anosExperiencia,
+      formacao: req.body.formacao,
+      disciplina02: req.body.disciplina02,
+      telefone: req.body.telefone
+    }
+    new Professor(novoProfessor).save().then(()=>{
+      req.flash("success_msg", "Cadastrado com sucesso")
+    //  res.redirect("")
+  }).catch((err)=>{
+     console.log("Erro ao cadastrar professor"+err)
+  })
+   }
+})
+//-------------------rotas para edição-------------------------------------
+router02.get('/professor/edit/:id', (req, res)=>{
+    Professor.findOne({_id: req.params.id}).then((professores)=>{
+      res.render('/admin02/professoredit', {professores:professores})
+    }).catch((err)=>{
+      req.flash('error_msg', "Não foi possível editar o cadastro.")
+      res.redirect('/admin02/professor')
+    })
+})
 
-  if (!req.body.nome ||typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:'Defina o nome corretamente'})}
-  if (!req.body.nomeMae || typeof req.body.nomeMae == undefined || req.body.nomeMae == null) {erros.push({texto:'Nome mãe é obrigatório'})}
-  if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:'Campo obrigatório'})}
-  if (erros.length > 0 ) {res.render("/admin/aluno",{erros:erros})}
+router02.post('/professor/editar', (req, res)=>{
+   Professor.findOne({_id: req.body.id}).then((professores)=>{
+      var errors = []
+    if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:"Digite o nome corretamente."}) }
+    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Entre com sua idade corretamente."})}
+    if (!req.body.telefone || typeof req.body.telefone == undefined || req.body.telefone null || telefone.length < 11 ) { erros.push({texto:"Corrija o telefone."})}
+    //Posso fazer vários outros tratamentos mas usarei esses por enquanto.
+    else {
+     professores.nome = req.body.nome,
+     professores.idade = req.body.idade,
+     professores.disciplina = req.body.disciplina,
+     professores.cargaHoraria = req.body.cargaHoraria,
+     professores.anosExperiencia = req.body.anosExperiencia,
+     professores.formacao = req.body.formacao,
+     professores.telefone = req.body.telefone
+}
+
+   }).catch()
+})
+
+//  -----rotas para remoção de professor ---------------------------------
+router02.post('/professor/deletar', (req, res)=>{
+  //O id do professor será pego dinameicamente e então será buscado a
+  // partir do remove e deletado caso esteja contigo no banco de dados.
+  Professor.remove({_id: req.body.id}).then(()=>{
+    //Tratamento caso o professor seja removido com sucesso do banco de dados.
+    //Após ser deletado, então, o professor será redirecionado para a página
+    //principal de professor.
+   req.flash("success_msg", "Professor deletado com sucesso.")
+   res.redirect('/admin02/professor')
+ }).catch((err)=>{
+   //Aqui é o tratamento caso o professor nãoseja removido. Assim, será exibida
+   //uma mensagem de erro e serei direcionado para a página principal de professor.
+   req.flash("error_msg", "Erro ao remover professor.")
+   res.redirect('/admin02/professor')
+ })
+})
+
+//--------AQUI SERÃO DADAS AS CONFIGURAÇÕES PARA FUNCIONARIO--- ----------
+  //----Rotas necessárias para o uso nos funcionários --------------------
+
+router02.get('/funcionario', (req, res)=>{
+  res.render('./admin02/funcionario')
+})
+
+router02.get('/funcionario/add', (req, res)=>{
+  res.render('./admin02/funcionarioadd')
+})
+
+router02.post('/funcionario/novo', (req, res)=>{
+  var erros = []
+  if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) { erros.push({texto:"Digite o nome corretamente."})}
+  //Por enqunto coloquei somente um, mas colocarei vários tratamentos
   else {
-
-
-  const novoAluno = {
-    nome: req.body.nome,
-    idade: req.body.idade,
-    turno: req.body.turno,
-    anoEnsino: req.body.anoEnsino,
-    anoEntrada: req.body.anoEntrada,
-    anoSaida: req.body.anoSaida,
-    nomePai: req.body.nomePai,
-    nomeMae: req.body.nomeMae,
-    telefone: req.body.telefone
+    //para casatradmento no banco de dados nas seguites informações sobre funcionários.
+    const novoFuncionario = {
+      nome: req.body.nome,
+      idade: req.body.idade,
+      funcao: req.body.funcao,
+      dataEntrada: req.body.dataEntrada,
+      salario: req.body.salario,
+      turnoTrabalho: req.body.salario,
+      regimeTrabalho: req.body.regimeTrabalho
+    }
+    //Aqui uso o model para que os requerimentos sejam postos dentro do banco de
+    //dados mongoose. Também, há o tratamento após adicionar e caso o cadastramento
+    //nao seja possível, também haverá tratamento.
+    Funcionario(novoFuncionario).save().then(()=>{
+      req.flash("success_msg", "Funcionário cadastrado com sucesso.")
+      res.redirect("/admin02/funcionario")
+    }).catch((err)=>{
+      console.log("Erro ao cadastrar funcionário."+err)
+      res.redirect("/admin02/funcionario")
+    })
   }
-  new Aluno(novoAluno).save().then(()=>{
-    req.flash("success_msg", "Aluno cadastrado com sucesso")
-    res.redirect('/admin/aluno')
+})
+
+router02.get('/funcionario/edit/:id', (req, res)=>{
+  res.render('./admin02/funcionarioedit')
+})
+
+router02.post('/funcionario/edit/editar', (req, res)=>{
+
+})
+router02.post('/funcionario/remover', (req, res)=>{
+  //Aqui é pego o model de funcionário e acessado o banco de dados .
+  //Nisso, é pego o funcionário a partir do seu id que será pego dinamicamente
+  //na página handlebars que simula o html.
+  Funcionario.remove({_id: req.body.id}).then(()=>{
+    //Caso o funcionário seja deletado com sucesso então haverá
+    //esta mensagem e a página será redirecionada para o inicial de funcionário.
+    req.flash("success_msg", "Funcionário deletado com sucesso.")
+    res.redirect("/admin02/funcionario")
   }).catch((err)=>{
-    req.flash("error_msg", "Falha ao cadastrar")
-    console.log("Nao foi possível salvar"+err)
+    //Caso haja algum erro ao se tentar removê-lo, então, outra mensagem sera
+    //exibida e havera direcionamento para a página inicial de funcionário.
+    req.flash("error_msg", "Houve erro interno, não foi possível deletar funcionário.")
+    res.redirect("/admin02/funcionario")
   })
-  }
-})
 
-//-----------------------------------------------------------------------------
-//ESTA PARTE PARA POST DE EDIÇÃO DE ALUNO.
-
-//Tenho aqui a rota para acesso à página de edição de aluno. Nota-se que será
-//pego o id de cada aluno dinamicamente e assim a podificá-lo.
-router.get('/aluno/edit', (req, res)=>{
-  res.render('./admin/alunoedit')
-})
-
-router.post('/aluno/editar', (req, res)=>{
-  res.send("mensagem teste")
-})
-
-//-----------------------------------------------------------------------------
-//ESTA PARTE PARA DELETAR ALUNO
-//Rota post para deletar aluno a partir do id pego dinamicamente.
-//Também, um tratamento padrão para sucesso e erro, que serão exibidos a partir
-//da páginas contida na pasta partial.
-router.post('/aluno/deletar', (req, res)=>{
-  Aluno.remove({_id: req.body.id}).then(()=>{
-    req.flash("success_msg","Aluno deletado com sucesso.")
-    res.redirect('/admin/aluno') //ainda falta adicionar a rota de direcionamento
-  }).catch((err)=>{
-    req.flash("error_msg", "Houve erro erro interno e não foi possível deletar")
-    res.redirect('/admin/aluno')
-  })
 })
 
 
-
-
-//Módulo para exportar tudo o que tenho a partir da rota determinada.
-module.exports = router
+module.exports = router02
