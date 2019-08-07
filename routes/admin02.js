@@ -41,11 +41,18 @@ router02.post('/professor/novo', (req, res)=>{
 })
 //-------------------rotas para edição-------------------------------------
 router02.get('/professor/edit/:id', (req, res)=>{
-  res.render('./admin02/professoredit')
+    Professor.findOne({_id: req.params.id}).then((professor)=>{
+      res.render('/admin02/professoredit', {professor:professor})
+    }).catch((err)=>{
+      req.flash('error_msg', "Não foi possível editar o cadastro.")
+      res.redirect('/admin02/professor')
+    })
 })
 
 router02.post('/professor/editar', (req, res)=>{
-  //Ainda faltante;
+   Professor.findOne({_id: req.body.id}).then((professor)=>{
+
+   }).catch()
 })
 
 //  -----rotas para remoção de professor ---------------------------------
@@ -110,7 +117,7 @@ router02.get('/funcionario/edit/:id', (req, res)=>{
 })
 
 router02.post('/funcionario/edit/editar', (req, res)=>{
-  
+
 })
 router02.post('/funcionario/remover', (req, res)=>{
   //Aqui é pego o model de funcionário e acessado o banco de dados .
