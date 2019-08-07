@@ -55,6 +55,7 @@ router02.post('/professor/editar', (req, res)=>{
     if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:"Digite o nome corretamente."}) }
     if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Entre com sua idade corretamente."})}
     if (!req.body.telefone || typeof req.body.telefone == undefined || req.body.telefone null || telefone.length < 11 ) { erros.push({texto:"Corrija o telefone."})}
+    if (erros.length > 0 ) { res.render("/admin02/professoredit", {erros:errors})}
     //Posso fazer vários outros tratamentos mas usarei esses por enquanto.
     else {
      professores.nome = req.body.nome,
@@ -64,9 +65,20 @@ router02.post('/professor/editar', (req, res)=>{
      professores.anosExperiencia = req.body.anosExperiencia,
      professores.formacao = req.body.formacao,
      professores.telefone = req.body.telefone
+
+     professores.save().then(()=>{
+       req.flash("success_msg", "Professor editado com sucesso.")
+       res.redirect('/admin02/professor')
+     }).catch((err)=>{
+       req.flash("error_msg", "Erro ao editar professor.")
+       res.redirect('/admin02/professor')
+     })
 }
 
-   }).catch()
+}).catch((err)=>{
+  req.flash("error_msg", "Houve erro interno ao tentar editar professor.")
+  res.redirect('/admin02/professor')
+})
 })
 
 //  -----rotas para remoção de professor ---------------------------------
