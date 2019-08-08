@@ -153,7 +153,12 @@ router02.post('/funcionario/novo', (req, res)=>{
 })
 
 router02.get('/funcionario/edit/:id', (req, res)=>{
-  res.render('./admin02/funcionarioedit')
+  Funcionario.findOne({_id: req.params.id}).then((funcionarios)=>{
+    res.render('./admin02/funcionarioedit', {funcionarios:funcionarios})
+  }).catch((err)=>{
+    req.flash("error_msg", "Não foi possível encontrar o funcionário desejado.")
+    res.redirect('/admin02/funcionario')
+  })
 })
 
 router02.post('/funcionario/edit/editar', (req, res)=>{
