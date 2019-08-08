@@ -76,6 +76,8 @@ router.post('/aluno/editar', (req, res)=>{
     var erros = []
     //validação que ainda falta ser terminada.
     if (!req.body.nome || typeof req.body.nome == undefined || req.body.nome == null) {erros.push({texto:"Digite o nome do aluno corretamente."})}
+    if (!req.body.idade || typeof req.body.idade == undefined || req.body.idade == null) {erros.push({texto:"Digite a idade do aluno corretamente."})}
+    if (!req.body.nomeMae || typeof req.body.nomeMae == undefined || req.body.nomeMae == null) {erros.push({texto:"O campo mãe é obrigatório."})}
     if (erros.length > 0 ) {res.render("/admin/alunoedit", {erros: erros})}
     else {
       //Para armazenamento das  novas variáveis pegas  no formulário.
