@@ -162,6 +162,9 @@ router02.get('/funcionario/edit/:id', (req, res)=>{
 })
 
 router02.post('/funcionario/edit/editar', (req, res)=>{
+  Funcionario.findOne({_id: req.body.id}).then((funcionarios)=>{
+   
+  }).catch((err)=>{})
 
 })
 router02.post('/funcionario/remover', (req, res)=>{
