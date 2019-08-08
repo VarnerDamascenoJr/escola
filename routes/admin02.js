@@ -163,7 +163,23 @@ router02.get('/funcionario/edit/:id', (req, res)=>{
 
 router02.post('/funcionario/edit/editar', (req, res)=>{
   Funcionario.findOne({_id: req.body.id}).then((funcionarios)=>{
-   
+   var erros = []
+   if (true) {}
+
+   if (erros.length > 0 ) { res.render("/admin02/funcionario/edit", {erros: erros})}
+     else {
+       funcionarios.nome = req.body.nome,
+       funcionarios.idade = req.body.idade,
+       funcionarios.funcao = req.body.funcao,
+       funcionarios.dataEntrada = req.body.dataEntrada,
+       funcionarios.salario = req.body.salario, 
+       funcionarios.turnoTrabalho = req.body.turnoTrabalho,
+       funcionarios.regimeTrabalho = req.body.regimeTrabalho,
+       funcionarios.telefone = req.body.telefone
+
+       funcionarios.save().then().catch()
+     }
+   }
   }).catch((err)=>{})
 
 })
