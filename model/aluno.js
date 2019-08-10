@@ -1,9 +1,13 @@
 const mongoose = require('mongoose')
-const Shema = mongoose.Schema
+const Schema   = mongoose.Schema
 
 
-const Aluno = new Shema{
+const Aluno = new Schema({
   nome:{
+    type:String,
+    required: true
+  },
+  email:{
     type:String,
     required: true
   },
@@ -24,8 +28,8 @@ const Aluno = new Shema{
     required:true
   },
   anoSaida:{
-    type:Date,
-    required: true
+    type:Date
+
   },
   nomePai:{
     type:String,
@@ -39,6 +43,6 @@ const Aluno = new Shema{
     type:Number,
     required:true
   }
-}
+})
 
-mongoose.model('aluno', Aluno)
+mongoose.model("alunos", Aluno)
