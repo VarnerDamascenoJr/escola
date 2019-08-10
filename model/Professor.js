@@ -10,6 +10,10 @@ const Professor = new Schema({
     type: Number,
     required: true
   },
+  email:{
+    type:String,
+    required:true
+  },
   disciplina:{
     type:String,
     required: true
