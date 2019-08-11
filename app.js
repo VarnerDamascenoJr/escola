@@ -4,6 +4,7 @@ const mongoose   = require('mongoose')
 const app        = express()
 const admin      = require("./routes/admin")
 const admin02    = require('./routes/admin02')
+const login      = require('./routes/login')
 const session    = require('express-session')
 const flash      = require('connect-flash')
 const bodyParser = require('body-parser')
@@ -61,6 +62,7 @@ const Funcionario = mongoose.model('funcionarios')
 
         app.use('/admin', admin) //Aqui está definido o meu primeiro grupo de rotas.
         app.use('/admin02', admin02)//Aqui será meu segundo conjunto de rotas
+        app.use('/login', login)
 
             //Aqui estou informando a porta que será usada nesta aplicação
             //também estou mostrando a mensagem caso o meu servidor seja acessado com
