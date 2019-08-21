@@ -9,8 +9,9 @@ routerLogin.get('/login/principal',(req, res)=>{
   res.render('./login/index')
 })
 
-routerLogin.get('/regsitro', (req, res)=>{
+routerLogin.get('/login/registro', (req, res)=>{
   res.render('./login/registro)
 })
-
+  
+routerLogin.post()
 module.exports = routerLogin
