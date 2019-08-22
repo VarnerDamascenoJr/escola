@@ -16,6 +16,8 @@ require('./models/Professor')
 const Professor = mongoose.model('professores')
 require('./models/Funcionario')
 const Funcionario = mongoose.model('funcionarios')
+require('./models/Usuario')
+const Usuario = mongoose.model('usuarios')
 
 //CONFIGURAÇÕES
      //Body-parser
