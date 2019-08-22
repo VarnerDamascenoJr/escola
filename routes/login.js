@@ -24,8 +24,11 @@ routerLogin.post('/registrar', (req, res)=>{
 if(!req.body.nome  || typeof req.body.nome == null  || req.body.nome == undefined) { erros.push({texto:"Campo nome incorreto. Digite corretamente, por favor."})}
 if(!req.body.email || typeof req.body.email == null || req.body.email == undefined){ erros.push({texto:"Campo obrigatório, digite corretamente."})}
 if(!req.body.senha || typeof req.body.senha == null || req.body.senha == undefined){ erros.push({texto:"Digite a senha corretamente."})}
+if(req.boy.senha != req.body.senha2){ erros.push({texto:"Senhas diferentes.")}  
 if(erros.length > 0){
     res.render("./login/registro", {erros: erros})
-}else{}
+}else{
+    
+}
 })
 module.exports = routerLogin
