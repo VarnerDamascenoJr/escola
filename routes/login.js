@@ -1,5 +1,9 @@
 const express = require('express')
+const mongoose = require('mongoose')
+require('../models/Usuario')
+const Usuario = mongoose.model('usuarios')
 const routerLogin = express.Router()
+
 //Há certos erros aqui
 routerLogin.get("/login",(req, res)=>{
   res.render('./login/login')
