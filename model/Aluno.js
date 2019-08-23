@@ -8,8 +8,8 @@ const Aluno = new Schema({
     required: true
   },
   email:{
-    type:String,
-    required: true
+    type:String
+    
   },
   idade:{
     type:Number,
@@ -20,16 +20,16 @@ const Aluno = new Schema({
     required: true
   },
   anoEnsino:{
+    type:String
+    
+  },
+  anoEntrada:{
     type:Number,
     required:true
   },
-  anoEntrada:{
-    type:Date,
-    required:true
-  },
   anoSaida:{
-    type:Date
-
+    type:Number
+    
   },
   nomePai:{
     type:String,
