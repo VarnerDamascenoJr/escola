@@ -61,7 +61,10 @@ if(erros.length > 0){
          })
       })
     }
-  }).catch((err)=>{})
+  }).catch((err)=>{
+     req.flash("error_msg, "Houve erro interno")
+     res.redirect('/login/index')
+  })
     
 }
 })
