@@ -1,10 +1,10 @@
-const express = require('express')
-const mongoose = require('mongoose')
+const express     = require('express')
+const mongoose    = require('mongoose')
 require('../models/Usuario')
-const Usuario = mongoose.model('usuarios')
+const Usuario     = mongoose.model('usuarios')
 const routerLogin = express.Router()
-const bcrypt    = require('bcryptjs')
-//Há certos erros aqui
+const bcrypt      = require('bcryptjs')
+
 routerLogin.get("/login",(req, res)=>{
   res.render('./login/login')
 })
